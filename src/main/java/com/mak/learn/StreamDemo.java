@@ -1,5 +1,8 @@
 package com.mak.learn;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,7 +16,7 @@ import java.util.stream.Stream;
  * @create 2017-03-20
  */
 public class StreamDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String data[] = {"1","2","33","46","78","99","36"};
         Stream stream = Stream.of(data);
         Long count = stream.filter(d->d.equals("33")).count();
@@ -34,6 +37,18 @@ public class StreamDemo {
         //操作顺序不同得到的结果也不同
         operateNormal();
 //        operateErr();
+
+      scanFiles();
+    }
+
+    /**
+     * 扫码文件目录
+     * @throws IOException
+     */
+    private static void scanFiles() throws IOException {
+        Files.walk(Paths.get("."))
+                .filter(p -> !p.toFile().getName().startsWith("."))
+                .forEach(System.out::println);
     }
 
     private static void operateNormal() {
