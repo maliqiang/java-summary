@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.*;
 
 import static java.time.temporal.TemporalAdjusters.*;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -84,20 +85,20 @@ public class DateTest {
         LocalDateTime timePoint = LocalDateTime.now();
         // Set the value, returning a new object
         LocalDateTime thePast = timePoint.withDayOfMonth(10).withYear(2010);
-        outputMSg("today is",timePoint);
-        outputMSg("new DateTime",thePast);
+        outputMSg("today is", timePoint);
+        outputMSg("new DateTime", thePast);
         /**
          *  You can use direct manipulation methods or pass a value and field pair
          *
          */
         LocalDateTime plusWeeks = thePast.plusWeeks(3);
         LocalDateTime yetAnother = thePast.plusWeeks(3).plus(3, ChronoUnit.WEEKS);
-        outputMSg("plus 3 weeks",plusWeeks);
-        outputMSg("plus 6 weeks",yetAnother);
+        outputMSg("plus 3 weeks", plusWeeks);
+        outputMSg("plus 6 weeks", yetAnother);
     }
 
     @Test
-    public void testSelfDefinedAjuster(){
+    public void testSelfDefinedAjuster() {
         LocalDateTime timePoint = LocalDateTime.now();
         //当前时间的日期设置为本月最后一天
         LocalDateTime foo = timePoint.with(lastDayOfMonth());
@@ -107,20 +108,83 @@ public class DateTest {
         // Using value classes as adjusters
         LocalDateTime adjuster = timePoint.with(LocalTime.now());
 
-        outputMSg("now",timePoint);
-        outputMSg("foo",foo);
-        outputMSg("bar",bar);
-        outputMSg("adjuster",adjuster);
+        outputMSg("now", timePoint);
+        outputMSg("foo", foo);
+        outputMSg("bar", bar);
+        outputMSg("adjuster", adjuster);
     }
 
     @Test
-    public void testTruncate(){
+    public void testTruncate() {
         LocalTime time = LocalTime.now();
         LocalTime millisTime = time.truncatedTo(ChronoUnit.MILLIS);
         LocalTime truncatedTime = time.truncatedTo(ChronoUnit.SECONDS);
-        outputMSg("millisTime",millisTime);
-        outputMSg("truncatedTime",truncatedTime);
+
+
+        outputMSg("millisTime", millisTime);
+        outputMSg("truncatedTime", truncatedTime);
     }
+
+    @Test
+    public void testDemo4() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        // You can specify the zone id when creating a zoned date time
+        ZoneId id = ZoneId.of("Europe/Paris");
+        ZonedDateTime zoned = ZonedDateTime.of(dateTime, id);
+        outputMSg("zoned", zoned);
+        assertEquals(id, ZoneId.from(zoned));
+
+        OffsetTime time = OffsetTime.now();
+
+        ZoneOffset offset = ZoneOffset.UTC;
+        // changes offset, while keeping the same point on the timeline
+        OffsetTime sameTimeDifferentOffset = time.withOffsetSameInstant(
+                offset);
+        // changes the offset, and updates the point on the timeline
+        OffsetTime changeTimeWithNewOffset = time.withOffsetSameLocal(
+                offset);
+        // Can also create new object with altered fields as before
+        changeTimeWithNewOffset
+                .withHour(3)
+                .plusSeconds(2);
+        outputMSg("changeTimeWithNewOffset",changeTimeWithNewOffset);
+    }
+
+    @Test
+    public void testPeriod(){
+        LocalDate oldDate = LocalDate.now();
+        ZonedDateTime oldDateTime = ZonedDateTime.now();
+
+        // 3 years, 2 months, 1 day
+        Period period = Period.of(3, 2, 1);
+
+        // You can modify the values of dates using periods
+        LocalDate newDate = oldDate.plus(period);
+        ZonedDateTime newDateTime = oldDateTime.minus(period);
+        // Components of a Period are represented by ChronoUnit values
+        outputMSg("newDate",newDate);
+        outputMSg("newDateTime",newDateTime);
+        outputMSg("day",period.get(ChronoUnit.DAYS));
+
+    }
+
+    @Test
+    public void testDuration(){
+        // A duration of 3 seconds and 5 nanoseconds
+        Duration duration = Duration.ofSeconds(3, 5);
+        LocalDateTime today = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime yesterday = LocalDateTime.parse("2017-11-03 14:29:30",dateTimeFormatter);
+        Duration oneDay = Duration.between(today, yesterday);
+        outputMSg("duration",duration);
+        outputMSg("oneDay",oneDay);
+
+        long days  = Math.abs(ChronoUnit.DAYS.between(today, yesterday));
+        outputMSg("days",days);
+    }
+
+
+
 
     public void outputMSg(String prefixMsg, Object dateInfo) {
         System.out.println(prefixMsg + ":\t" + dateInfo);
