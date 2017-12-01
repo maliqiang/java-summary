@@ -31,14 +31,17 @@ public class StreamDemo {
         list.add("26");
         list.add("47");
         list.add("99");
-        List<String> result = list.stream().filter(l->l.equals("99")).collect(Collectors.toList());
+        List<String> result = list.stream().sorted().filter(l->l.equals("99")).collect(Collectors.toList());
+        List<String> natureSort = list.stream().sorted().collect(Collectors.toList());
+        List<String> resultSort = list.stream().sorted(String::compareTo).collect(Collectors.toList());
         result.forEach(System.out::println);
-
+        natureSort.forEach(System.out::println);
+        resultSort.forEach(System.out::println);
         //操作顺序不同得到的结果也不同
-        operateNormal();
+//        operateNormal();
 //        operateErr();
 
-      scanFiles();
+//      scanFiles();
     }
 
     /**
