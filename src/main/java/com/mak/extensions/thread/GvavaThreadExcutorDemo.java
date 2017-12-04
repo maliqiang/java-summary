@@ -1,17 +1,24 @@
 package com.mak.extensions.thread;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class Test {
+
+public class GvavaThreadExcutorDemo {
+    public static Logger log = LoggerFactory.getLogger(GvavaThreadExcutorDemo.class);
+
+    private static int CORE_POOL_SIZE = 5;
+    private static int MAX_IMUM_POOL_SIZE = 10;
+    private static int KEEP_ALIVE_TIME = 200;
+
      public static void main(String[] args) {
-         int CORE_POOL_SIZE = 5;
-         int MAX_IMUM_POOL_SIZE = 10;
-         int KEEP_ALIVE_TIME = 200;
          ThreadFactory threadFactory = new ThreadFactoryBuilder()
                  .setNameFormat("demo-pool-thread-%d")
                  .build();
@@ -44,7 +51,13 @@ public class Test {
              System.out.println("线程池中线程数目："+executor.getPoolSize()+"，队列中等待执行的任务数目："+
              executor.getQueue().size()+"，已执行玩别的任务数目："+executor.getCompletedTaskCount());
          }
+         log.info("线程池是否关闭：",executor.isShutdown());
+         log.info("线程是否终止：",executor.isTerminated());
+         //shutdown方法会等待所有任务执行完毕后关闭线程池
          executor.shutdown();
+         //会立即停止程序执行，要注意捕获异常
+//         executor.shutdownNow();
+
      }
 }
  
