@@ -5,7 +5,9 @@
  */
 package com.mak.util;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Date类型操作工具类
@@ -26,5 +28,11 @@ public class DateUtil {
             year = LocalDate.now().getYear();
         }
         return LocalDate.ofYearDay(year, dayOfYear);
+    }
+
+    public Date getNow(){
+//        LocalDate now = LocalDate.now();
+        Instant instant = Instant.now();
+        return Date.from(instant);
     }
 }
