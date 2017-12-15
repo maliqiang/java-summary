@@ -12,6 +12,8 @@ package com.mak.extensions.reflection;
  * @version 1.0
  */
 public class User {
+    public String age;
+
     private Integer id  = 0;
     private String name = "mark";
 
@@ -29,5 +31,9 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void print(String name){
+        System.out.println("invoke方法执行:"+name);
     }
 }

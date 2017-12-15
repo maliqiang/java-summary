@@ -6,6 +6,9 @@
 package com.mak.extensions.reflection;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * @author maliqiang
@@ -32,6 +35,43 @@ public class ReflectUtil {
 
     public static void main(String[] args) {
         User user = new User();
+
+        Class clz = user.getClass();
+        Field[] fields = clz.getFields();
+        System.out.println(fields[0].getType());
+        //返回底层类的完整名称
+        System.out.println(clz.getTypeName());
+        System.out.println(clz.getName());
+        //返回底层类的规范名称
+        System.out.println(clz.getCanonicalName());
+        //获取类的名称
+        System.out.println(clz.getSimpleName());
+        System.out.println(clz.isPrimitive());
+        int modifiers = clz.getModifiers();
+        System.out.println(Modifier.isAbstract(modifiers));
+        //直接输出修饰符
+        System.out.println(Modifier.toString(modifiers));
+
+
+        try {
+            Method method = clz.getMethod("print", String.class);
+            System.out.println(method.getName());
+            try {
+                Object obj = clz.newInstance();
+                try {
+                    method.invoke(obj, "方法执行测试");
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         try {
             setProperty(user, "name", "test");
         } catch (Exception e) {
