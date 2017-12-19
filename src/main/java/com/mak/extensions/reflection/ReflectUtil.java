@@ -52,7 +52,6 @@ public class ReflectUtil {
         //直接输出修饰符
         System.out.println(Modifier.toString(modifiers));
 
-
         try {
             Method method = clz.getMethod("print", String.class);
             System.out.println(method.getName());
