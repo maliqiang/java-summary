@@ -5,10 +5,13 @@
  */
 package com.mak.extensions.reflection;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author maliqiang
@@ -53,6 +56,13 @@ public class ReflectUtil {
         System.out.println(Modifier.toString(modifiers));
 
         try {
+            /**
+             * 获取注解
+             */
+            Annotation []annotation = clz.getAnnotations();
+            List<Annotation> annotations = Arrays.asList(annotation);
+            annotations.forEach(System.out::println);
+
             Method method = clz.getMethod("print", String.class);
             System.out.println(method.getName());
             try {
