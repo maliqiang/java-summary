@@ -5,16 +5,20 @@
  */
 package com.mak.extensions.reflection;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.NonNull;
+
 /**
- *
  * @author maliqiang
- * @create 2017-12-14
  * @version 1.0
+ * @create 2017-12-14
  */
 public class User {
+    @JSONField(name = "user_age")
     public String age;
 
-    private Integer id  = 0;
+    private Integer id = 0;
+    @NonNull
     private String name = "mark";
 
     public Integer getId() {
@@ -33,7 +37,7 @@ public class User {
         this.name = name;
     }
 
-    public void print(String name){
-        System.out.println("invoke方法执行:"+name);
+    public void print(String name) {
+        System.out.println("invoke方法执行:" + name);
     }
 }

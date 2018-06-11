@@ -33,11 +33,11 @@ public class TimerDemo extends TimerTask {
     public static void main(String[] args) {
         ScheduledExecutorService service = Executors.newScheduledThreadPool(10);
         // 任务初次启动执行时的延迟时间
-        long initialDelay1 = 1;
+        long initialDelay = 1;
         // 从现在开始1秒钟之后，每隔1秒钟执行一次job1
         long period1 = 1;
         service.scheduleAtFixedRate(
-                new TimerDemo("job1"), initialDelay1,
+                new TimerDemo("job1"), initialDelay,
                 period1, TimeUnit.SECONDS);
 
         long initialDelay2 = 1;
