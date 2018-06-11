@@ -16,7 +16,7 @@ public class BlockingQueueModel implements Model {
     private final AtomicInteger increTaskNo = new AtomicInteger(0);
 
     public BlockingQueueModel(int cap) {
-        // LinkedBlockingQueue 的队列是 lazy-init 的，但 ArrayBlockingQueue 在创建时就已经 init
+        // LinkedBlockingQueue 的队列是lazy-init的，但 ArrayBlockingQueue 在创建时就已经init
         this.queue = new LinkedBlockingQueue<>(cap);
     }
 

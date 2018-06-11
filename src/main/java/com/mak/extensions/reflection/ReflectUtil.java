@@ -5,6 +5,8 @@
  */
 package com.mak.extensions.reflection;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -41,6 +43,12 @@ public class ReflectUtil {
 
         Class clz = user.getClass();
         Field[] fields = clz.getFields();
+
+        boolean hasAnnotation = fields[0].isAnnotationPresent(JSONField.class);
+        if(hasAnnotation){
+            JSONField jsonField = fields[0].getAnnotation(JSONField.class);
+            System.out.println("annotationValue:"+jsonField.name());
+        }
         System.out.println(fields[0].getType());
         //返回底层类的完整名称
         System.out.println(clz.getTypeName());
@@ -59,10 +67,11 @@ public class ReflectUtil {
             /**
              * 获取注解
              */
-            Annotation []annotation = clz.getAnnotations();
+            Annotation[] annotation = clz.getAnnotations();
             List<Annotation> annotations = Arrays.asList(annotation);
             annotations.forEach(System.out::println);
-
+//            Annotation annotation1 = annotations.get(0);
+//            System.out.println(annotation1);
             Method method = clz.getMethod("print", String.class);
             System.out.println(method.getName());
             try {
