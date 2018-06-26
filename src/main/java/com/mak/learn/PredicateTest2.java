@@ -23,7 +23,7 @@ public class PredicateTest2
 		System.out.println(calAll(books , ele->ele.length() > 20));
 		
 		// 使用Lambda表达式（目标类型是Predicate）过滤集合
-		books.removeIf(ele -> ((String)ele).length() < 10);//批量去除满足filter的元素
+		books.removeIf(ele -> (ele).length() < 10);//批量去除满足filter的元素
 		System.out.println(books);
 	}
 
