@@ -31,8 +31,13 @@ public class GvavaThreadExcutorDemo {
           * @param threadFactory：创建一个新的线程时使用的工厂。
           * @param handler: 线程池对拒绝任务的处理策略。
           */
-         ThreadPoolExecutor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_IMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS,
-                 new ArrayBlockingQueue<>(5),threadFactory,new ThreadPoolExecutor.AbortPolicy());
+         ThreadPoolExecutor executor = new ThreadPoolExecutor(CORE_POOL_SIZE,
+                 MAX_IMUM_POOL_SIZE,
+                 KEEP_ALIVE_TIME,
+                 TimeUnit.MILLISECONDS,
+                 new ArrayBlockingQueue<>(5),
+                 threadFactory,
+                 new ThreadPoolExecutor.AbortPolicy());
          /**
           * 当一个任务通过execute(Runnable)方法欲添加到线程池时：
           * 1、 如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
