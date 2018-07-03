@@ -21,6 +21,7 @@ public class CreateClass {
         //创建类
         CtClass ctClass = pool.makeClass("User");
 
+
         //
         try {
             // id
