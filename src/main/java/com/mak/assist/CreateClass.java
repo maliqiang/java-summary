@@ -21,7 +21,6 @@ public class CreateClass {
         //创建类
         CtClass ctClass = pool.makeClass("User");
 
-
         //
         try {
             // id
@@ -39,6 +38,7 @@ public class CreateClass {
 
             ctClass.addMethod(getMethod);
             ctClass.addMethod(setMethod);
+
             ctClass.debugWriteFile("/workspace/javassist-example/src/main/java/com/mark");
 
         } catch (CannotCompileException e) {
