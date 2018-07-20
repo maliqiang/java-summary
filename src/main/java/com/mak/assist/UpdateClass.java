@@ -26,6 +26,7 @@ public class UpdateClass {
       CtClass parentClass = classPool.get("com.mak.assist.entity.Parent");
       // setup super class
       ctClass.setSuperclass(parentClass);
+
       // output file
       //      ctClass.writeFile();
 
