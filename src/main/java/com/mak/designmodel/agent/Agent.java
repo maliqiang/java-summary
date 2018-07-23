@@ -1,9 +1,4 @@
-/**
- * Project:java8learn
- * Summary: 普通类
- * Copyright@上海一条网络科技有限公司
- */
-
+/** Project:java8learn Summary: 普通类 Copyright@上海一条网络科技有限公司 */
 package com.mak.designmodel.agent;
 
 import java.util.Random;
@@ -16,19 +11,19 @@ import java.util.Random;
  */
 public class Agent implements IAction {
 
-    private IAction action;
+  private IAction actor;
 
-    public Agent(IAction action) {
-        this.action = action;
-    }
+  public Agent(IAction actor) {
+    this.actor = actor;
+  }
 
-    @Override
-    public void doSomething() {
-        if (new Random().nextBoolean()) {
-            System.out.println("代理不安排相关事情");
-        } else {
-            System.out.println("代理安排，有事进行...");
-            action.doSomething();
-        }
+  @Override
+  public void doSomething() {
+    if (new Random().nextBoolean()) {
+      System.out.println("代理不安排相关事情");
+    } else {
+      System.out.println("代理安排，有事进行...");
+      actor.doSomething();
     }
+  }
 }
