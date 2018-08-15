@@ -37,7 +37,9 @@ public class User {
         this.name = name;
     }
 
+    @JSONField(ordinal = 9)
     public void print(String name) {
         System.out.println("invoke方法执行:" + name);
     }
+
 }

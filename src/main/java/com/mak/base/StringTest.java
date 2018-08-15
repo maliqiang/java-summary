@@ -52,4 +52,11 @@ public class StringTest {
 
         System.out.println(stringBuilder.toString());
     }
+
+    @Test
+    public void getValue(){
+       String original = "Hello";
+       String test = "Hello";
+       System.out.println(original==test);
+    }
 }

@@ -1,12 +1,15 @@
 ## 基础类笔记
 ### StringBuffer、StringBuilder区别
 相同点：
-* 内部都是通过append方法进行字符串拓展的
-* 初始容量都是字串长度+16，默认构造函数创建是是16
+* 内部都是通过append方法进行字符串拓展的。
+* 初始容量都是字串长度+16，默认构造函数创建时是16。
 
 不同点：
-* StringBuilder是非线程安全的
+* StringBuilder是非线程安全的。
 * StringBuffer是线程安全的，方法都由synchronized修饰
+
+> 特别说明
+String内部的value实现是final的char数组来保存真正的值，所以创建之后是不能修改的。
 
 ### ArraryList和Vector区别
 * 增长因子：0.75
