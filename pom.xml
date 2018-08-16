@@ -59,6 +59,12 @@
             <artifactId>javassist</artifactId>
             <version>3.20.0-GA</version>
         </dependency>
+        <!--汉语言处理包-->
+        <dependency>
+            <groupId>com.hankcs</groupId>
+            <artifactId>hanlp</artifactId>
+            <version>portable-1.6.7</version>
+        </dependency>
     </dependencies>
 
     <build>
