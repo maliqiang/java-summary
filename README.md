@@ -8,6 +8,8 @@ java8 learning example for everyday
 
 # 拓展
 ### 多线程相关
+* AQS
+* JUC
 ### 反射相关
 ### javassist [官方文档](http://www.javassist.org/tutorial/tutorial.html)
 + a. 读取一个类

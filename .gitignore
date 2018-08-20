@@ -9,3 +9,7 @@
 /*.iml
 
 /java8.iml
+/data/model/segment/
+/data/model/crf/
+/data/model/dependency/
+/data/model/perceptron/
