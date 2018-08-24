@@ -26,7 +26,7 @@ public class ReflectUtil {
     try {
       Class clz = obj.getClass();
       Field property = clz.getDeclaredField(propertyName);
-      // 取消属性权限检查
+      // 取消属性权限检查，即运行时private的值是可以通过反射的方式修改的
       property.setAccessible(true);
       try {
         property.set(obj, value);
@@ -53,7 +53,7 @@ public class ReflectUtil {
     // 返回底层类的完整名称
     System.out.println(clz.getTypeName());
     System.out.println(clz.getName());
-    // 返回底层类的规范名称
+    // 返回底层类的规范名称,即完整的类路径名称
     System.out.println(clz.getCanonicalName());
     // 获取类的名称
     System.out.println(clz.getSimpleName());
