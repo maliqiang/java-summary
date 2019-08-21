@@ -14,6 +14,7 @@ public class BuilderDemo {
 
   private int expireTime;
 
+
   public static BuilderDemo builder() {
     return new BuilderDemo();
   }

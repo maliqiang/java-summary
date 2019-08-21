@@ -6,6 +6,7 @@
 package com.mak.extensions.reflection;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -20,6 +21,7 @@ import java.util.List;
  * @version 1.0
  * @create 2017-12-14
  */
+@Slf4j
 public class ReflectUtil {
 
   public static void setProperty(Object obj, String propertyName, Object value) throws Exception {
@@ -39,6 +41,32 @@ public class ReflectUtil {
   }
 
   public static void main(String[] args) {
+    //    clzOperation();
+    String clzPath = "com.mak.extensions.reflection.User";
+    clzByPath(clzPath);
+  }
+
+  /**
+   * 根据完整类路径反射获取信息
+   *
+   * @param clzPath
+   */
+  private static void clzByPath(String clzPath) {
+
+    try {
+      Class clz = Class.forName(clzPath);
+      Field[] fields = clz.getFields();
+      Arrays.stream(fields).forEach(f -> log.info("当前类包含的变量：{}", f));
+      Method[] methods = clz.getDeclaredMethods();
+      Arrays.stream(methods).forEach(f -> log.info("当前类包含的方法：{}", f));
+    } catch (ClassNotFoundException e) {
+      log.error("找不到当前类：{}", clzPath);
+      e.printStackTrace();
+    }
+  }
+
+  /** 通过实体对象反射获取信息 */
+  private static void clzOperation() {
     User user = new User();
 
     Class clz = user.getClass();
@@ -73,7 +101,7 @@ public class ReflectUtil {
 
       Method method = clz.getMethod("print", String.class);
       System.out.println(method.getName());
-      //获取注解的值
+      // 获取注解的值
       System.out.println(method.getAnnotation(JSONField.class).ordinal());
       try {
         Object obj = clz.newInstance();

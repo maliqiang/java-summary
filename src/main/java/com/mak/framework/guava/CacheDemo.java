@@ -4,6 +4,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,19 +39,43 @@ public class CacheDemo {
             + ",当前获取缓存值："
             + stringCache.getIfPresent("hello"));
     stringCache.asMap().forEach((k, v) -> log.info("访问结束10s之后 ——>   key:{} ,value:{}", k, v));
-    //    for (int i = 0; i < 20; i++) {
-    //      //
-    //    }
+
+    // 最大容量控制的缓存
+    Cache<Integer, Integer> cache = buildHasCapacity();
+    for (int i = 1; i < 30; i++) {
+      //
+      cache.put(i, i);
+      if (cache.size() == 20) {
+        log.error("缓存总数量为：{}", cache.size());
+        cache.asMap().forEach((k, v) -> log.info("key:{} ,value:{}", k, v));
+      }
+      log.error("缓存总数量为：{}", cache.size());
+      cache.asMap().forEach((k, v) -> log.info("key:{} ,value:{}", k, v));
+
+    }
+
+    //缓存回收
+    List<Integer> keys = Arrays.asList(20,19,18,17);
+    cache.invalidateAll(keys); //释放部分key的值
+    cache.asMap().forEach((k, v) -> log.info("释放部分数据之后，key:{} ,value:{}", k, v));
+    cache.invalidateAll(); //释放所有
+    log.info("释放所有数据之后",cache.size());
   }
 
   private static Cache<String, String> buildStringCache() {
     Cache<String, String> stringCache =
         CacheBuilder.newBuilder()
             .expireAfterAccess(5, TimeUnit.SECONDS) // 访问后多久失效
-            .concurrencyLevel(10) // 并发值
+            .concurrencyLevel(Runtime.getRuntime().availableProcessors()) // 并发值,推荐设置为当前机器的CPU核心数
             .maximumSize(20) // 最大值
             .recordStats()
             .build();
     return stringCache;
+  }
+
+  private static Cache<Integer, Integer> buildHasCapacity() {
+    return CacheBuilder.newBuilder()
+            .maximumSize(10)
+            .build();
   }
 }
